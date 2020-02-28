@@ -1,0 +1,102 @@
+当希望链接别人的mysql时：mysql -h[别人的ip] -uroot -p连接目标的密码
+		   或者：mysql --host=[ip] --user=root  --password=root连接目标的密码
+
+用户名暂时都使用root用户
+1.什么时SQL：Structured Query Language:结构化查询语言
+其实就是定义了操作所有关系型数据库的规则，每一种数据库操作的方式存在不一样的地方
+2.SQL通用语法：
+   1.SQL语句可以单行或多行拼写，以分号结尾
+   2.MySQL数据库的SQL语句不区分大小写，关键字建议使用大写
+   3.注释：
+       单行注释：-- 注释内容 或者 # 注释内容 注意：必须加空格
+       多行注释：/* 注释 */ 空格可加可不加
+3.SQL的分类：
+   1.DDL(Data Definition Language) 数据定义语言
+    用来定义数据库对象：数据库, 表, 列等。 关键字：create, drop, alter等
+
+
+
+DDL：操作数据库,表
+      1.操作数据库：CRUD
+         1.C(create)：创建
+	    create database 新数据库名称;      创建新的数据库
+	    create database if not exists 数据库名称;  在不存在该数据库的情况下创建该数据库
+	    create database 新数据库名称 character set 字符集名称;    创建某个数据库, 并指定字符集
+	    create database if not exists 数据库名称 character set 字符集; 创建某个数据库，判断是否存在，并指定字符集
+
+	 2.R(Retrieve):查询
+	    show databases;  查询当下有哪些数据库
+	    其中;
+	       information_schema:用来描述mysql里的一些信息的数据库，比如说有哪些表，有哪些库的名字等，因此里边存放的表并不是真正的表，是视图，所以该数据库并                                    不存在对应的文件
+	       mysql:MySQL数据库的核心数据库，里边放了很多核心的数据，这个数据库里边存放了很多的表文件
+	       performance_schema:对性能提升做一些操作的数据库
+	       以上三个数据库尽量不要去进行更改
+	       test:该数据库可以随便动
+
+	    show create database 数据库名称;   查看某个数据库的字符集,查看某个数据库的创建语句
+
+	 3.U(Update):修改 修改数据库的字符集
+	   alter database 数据库名称 character set 字符集名称;   gbk utf8
+	    
+	 4.D(Delete);删除
+	 drop database 数据库名称;
+	 drop database if exists 数据库名称了  如果某个数据库存在，则删除该数据库
+
+	 5.使用数据库
+	  select database();  查询当前正在使用的数据库名称
+	  use 数据库名称;   使用某个数据库
+	  
+      2.操作表：
+       1.C(create)：创建
+	    create table 表名称(
+	    	   列名1  数据类型1,
+		   列名2  数据类型2,
+		   列名3  数据类型3,
+		   ...
+		   列名n  数据类型n
+); 
+
+注意：最后一列不需要加逗号
+
+	SQL中的数据类型： int(整数类型)                                    double(小数类型)  double(5, 2) 表示小数点一共有5位，小数点后边保留2位
+
+			  date(日期类型)只包含年月日, yyyy-MM-dd                      time(时间类型)  只包含时分秒  HH:MM:SS
+	                  datatime(日期类型)  包含年月日时分秒 yyy-MM-dd HH:mm:ss     year(年类型)   YYYY 只包含年
+
+			  timestamp(时间戳类型)  包含年月日, yyyy-MM-dd  如果将来不给这个字段赋值，或赋值位null, 则默认使用当前的系统时间，来自动赋值
+			  varchar（字符串类型） varchar(20) 表示姓名最大20个字符  zhangsan 8个字符   张三  2个字符
+
+       2.R(Retrieve):查询
+	    show tables;    查询某个数据库中所有的表名称
+	    desc 表名称;    查询某个表的结构
+       3.U(Update):修改 
+           1.修改表名称
+	   alter table 表名称 rename to 新的表名;  
+
+	   2.修改表的字符集
+	   show create table 表名称;  查看表的字符集
+	   alter table 表名称 character set 字符集名称;                           修改表的字符集名称
+
+	   3.添加一列
+	   alter table 表名称 add 列名 数据类型;                                  添加列
+
+	   4.修改列的名称，类型
+	   alter table 表名称 change 原有列名 新的列名 新的数据类型;              同时修改列名称和列的数据类型
+	   alter table 表名称 modify 列名称 列的新数据类型;                       仅仅修改列的数据类型
+
+	   5.删除列
+	   alter table 表名称 drop 列名称;            删除某一列
+
+       			       			
+       4.D(Delete);删除
+           drop table 表名称;
+	   drop table if exists 表名称;
+       5.复制表
+           create table 新表名称 like  被复制的表名称;
+
+
+       5.使用数据库
+       
+
+
+
